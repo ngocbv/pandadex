@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/pandadex/static/css/main.e69d9291.chunk.css",
-    "main.js": "/pandadex/static/js/main.47685a40.chunk.js",
-    "main.js.map": "/pandadex/static/js/main.47685a40.chunk.js.map",
+    "main.js": "/pandadex/static/js/main.08ba59fa.chunk.js",
+    "main.js.map": "/pandadex/static/js/main.08ba59fa.chunk.js.map",
     "runtime-main.js": "/pandadex/static/js/runtime-main.6cbb88b5.js",
     "runtime-main.js.map": "/pandadex/static/js/runtime-main.6cbb88b5.js.map",
     "static/css/2.3a0ac4c9.chunk.css": "/pandadex/static/css/2.3a0ac4c9.chunk.css",
     "static/js/2.9cde2f78.chunk.js": "/pandadex/static/js/2.9cde2f78.chunk.js",
     "static/js/2.9cde2f78.chunk.js.map": "/pandadex/static/js/2.9cde2f78.chunk.js.map",
     "index.html": "/pandadex/index.html",
-    "precache-manifest.0dc9c67c9fde20a9d83cdf2671bb1a4f.js": "/pandadex/precache-manifest.0dc9c67c9fde20a9d83cdf2671bb1a4f.js",
+    "precache-manifest.04d6860d0eef0bb7fead1e55f01434e4.js": "/pandadex/precache-manifest.04d6860d0eef0bb7fead1e55f01434e4.js",
     "service-worker.js": "/pandadex/service-worker.js",
     "static/css/2.3a0ac4c9.chunk.css.map": "/pandadex/static/css/2.3a0ac4c9.chunk.css.map",
     "static/css/main.e69d9291.chunk.css.map": "/pandadex/static/css/main.e69d9291.chunk.css.map",
     "static/js/2.9cde2f78.chunk.js.LICENSE.txt": "/pandadex/static/js/2.9cde2f78.chunk.js.LICENSE.txt",
-    "static/media/logo.png": "/pandadex/static/media/logo.103813c9.png"
+    "static/media/logo.png": "/pandadex/static/media/logo.a938fe5e.png"
   },
   "entrypoints": [
     "static/js/runtime-main.6cbb88b5.js",
     "static/css/2.3a0ac4c9.chunk.css",
     "static/js/2.9cde2f78.chunk.js",
     "static/css/main.e69d9291.chunk.css",
-    "static/js/main.47685a40.chunk.js"
+    "static/js/main.08ba59fa.chunk.js"
   ]
 }
