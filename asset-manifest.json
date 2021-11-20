@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/pandadex-page/static/css/main.0d007200.chunk.css",
+    "main.js": "/pandadex-page/static/js/main.d1ce61e6.chunk.js",
+    "main.js.map": "/pandadex-page/static/js/main.d1ce61e6.chunk.js.map",
+    "runtime-main.js": "/pandadex-page/static/js/runtime-main.944da98f.js",
+    "runtime-main.js.map": "/pandadex-page/static/js/runtime-main.944da98f.js.map",
+    "static/css/2.3a0ac4c9.chunk.css": "/pandadex-page/static/css/2.3a0ac4c9.chunk.css",
+    "static/js/2.10625959.chunk.js": "/pandadex-page/static/js/2.10625959.chunk.js",
+    "static/js/2.10625959.chunk.js.map": "/pandadex-page/static/js/2.10625959.chunk.js.map",
+    "index.html": "/pandadex-page/index.html",
+    "precache-manifest.5c9efc3c57a091fae8b651d830466a52.js": "/pandadex-page/precache-manifest.5c9efc3c57a091fae8b651d830466a52.js",
+    "service-worker.js": "/pandadex-page/service-worker.js",
+    "static/css/2.3a0ac4c9.chunk.css.map": "/pandadex-page/static/css/2.3a0ac4c9.chunk.css.map",
+    "static/css/main.0d007200.chunk.css.map": "/pandadex-page/static/css/main.0d007200.chunk.css.map",
+    "static/js/2.10625959.chunk.js.LICENSE.txt": "/pandadex-page/static/js/2.10625959.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/pandadex-page/static/media/logo.49174c73.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.944da98f.js",
+    "static/css/2.3a0ac4c9.chunk.css",
+    "static/js/2.10625959.chunk.js",
+    "static/css/main.0d007200.chunk.css",
+    "static/js/main.d1ce61e6.chunk.js"
+  ]
+}
