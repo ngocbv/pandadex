@@ -7,15 +7,11 @@ const { Footer } = Layout;
 const { useBreakpoint } = Grid;
 
 const footerElements = [
-  {
-    description: 'Serum Developer Resources',
-    link: helpUrls.developerResources,
-  },
+  { description: 'Twitter', link: helpUrls.twitter },
   { description: 'Discord', link: helpUrls.discord },
   { description: 'Telegram', link: helpUrls.telegram },
-  { description: 'GitHub', link: helpUrls.github },
-  { description: 'Project Serum', link: helpUrls.projectSerum },
-  { description: 'Solana Network', link: helpUrls.solanaBeach },
+  { description: 'Medium', link: helpUrls.medium },
+  { description: 'Homepage', link: helpUrls.website },
 ];
 
 export const CustomFooter = () => {

@@ -26,10 +26,17 @@ import BonfidaApi from './bonfidaConnector';
 
 // Used in debugging, should be false in production
 const _IGNORE_DEPRECATED = false;
-
-export const USE_MARKETS: MarketInfo[] = _IGNORE_DEPRECATED
+let tmpMarkets = _IGNORE_DEPRECATED
   ? MARKETS.map((m) => ({ ...m, deprecated: false }))
   : MARKETS;
+tmpMarkets.push({
+  "address": new PublicKey("GdmQtZpXZiasZi6TVsDHVLeNvPZY1dmuQ82KXDcKEJPy"),
+  "name": "PANDA/USDC",
+  "programId": new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"),
+  "deprecated": false,
+});
+
+export const USE_MARKETS: MarketInfo[] = tmpMarkets;
 
 export function useMarketsList() {
   return USE_MARKETS.filter(({ name, deprecated }) => !deprecated && !process.env.REACT_APP_EXCLUDE_MARKETS?.includes(name));
@@ -159,7 +166,7 @@ const _SLOW_REFRESH_INTERVAL = 5 * 1000;
 const _FAST_REFRESH_INTERVAL = 1000;
 
 export const DEFAULT_MARKET = USE_MARKETS.find(
-  ({ name, deprecated }) => name === 'SRM/USDT' && !deprecated,
+  ({ name, deprecated }) => name === 'PANDA/USDC' && !deprecated,
 );
 
 export function getMarketDetails(

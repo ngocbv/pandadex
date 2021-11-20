@@ -34,11 +34,6 @@ export default function Index() {
         <TabPane tab="Balances" key="balances">
           <BalancesTab />
         </TabPane>
-        {market && market.supportsSrmFeeDiscounts ? (
-          <TabPane tab="Fee discounts" key="fees">
-            <FeesTable />
-          </TabPane>
-        ) : null}
       </Tabs>
     </FloatingElement>
   );
