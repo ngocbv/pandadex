@@ -184,11 +184,7 @@ const OrderbookRow = React.memo(
         <Col span={12} style={{ textAlign: 'right' }}>
           <Line
             data-width={sizePercent + '%'}
-            data-bgcolor={
-              side === 'buy'
-                ? 'rgba(65, 199, 122, 0.6)'
-                : 'rgba(242, 60, 105, 0.6)'
-            }
+            data-bgcolor={side === 'buy' ? '#10cb80' : '#f6465d'}
           />
           <Price onClick={onPriceClick}>{formattedPrice}</Price>
         </Col>
