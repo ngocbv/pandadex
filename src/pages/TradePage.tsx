@@ -351,7 +351,6 @@ const RenderNormal = ({ onChangeOrderRef, onPrice, onSize }) => {
         //   </Row>
         // </Col>
       }
-      <div>sdjflksdfjkl</div>
       <Col flex={'360px'} style={{ height: '100%' }}>
         <Orderbook smallScreen={false} onPrice={onPrice} onSize={onSize} />
         <TradesTable smallScreen={false} />
