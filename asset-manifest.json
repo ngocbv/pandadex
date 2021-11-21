@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/pandadex/static/css/main.e69d9291.chunk.css",
+    "main.css": "/pandadex/static/css/main.4c27b2bd.chunk.css",
     "main.js": "/pandadex/static/js/main.01ebc96f.chunk.js",
     "main.js.map": "/pandadex/static/js/main.01ebc96f.chunk.js.map",
     "runtime-main.js": "/pandadex/static/js/runtime-main.6cbb88b5.js",
@@ -9,10 +9,10 @@
     "static/js/2.9cde2f78.chunk.js": "/pandadex/static/js/2.9cde2f78.chunk.js",
     "static/js/2.9cde2f78.chunk.js.map": "/pandadex/static/js/2.9cde2f78.chunk.js.map",
     "index.html": "/pandadex/index.html",
-    "precache-manifest.3ac21a419ed2e80fa3abb8ecbce1eaf7.js": "/pandadex/precache-manifest.3ac21a419ed2e80fa3abb8ecbce1eaf7.js",
+    "precache-manifest.f5252b542d9981985486354e4a132a18.js": "/pandadex/precache-manifest.f5252b542d9981985486354e4a132a18.js",
     "service-worker.js": "/pandadex/service-worker.js",
     "static/css/2.3a0ac4c9.chunk.css.map": "/pandadex/static/css/2.3a0ac4c9.chunk.css.map",
-    "static/css/main.e69d9291.chunk.css.map": "/pandadex/static/css/main.e69d9291.chunk.css.map",
+    "static/css/main.4c27b2bd.chunk.css.map": "/pandadex/static/css/main.4c27b2bd.chunk.css.map",
     "static/js/2.9cde2f78.chunk.js.LICENSE.txt": "/pandadex/static/js/2.9cde2f78.chunk.js.LICENSE.txt",
     "static/media/logo.png": "/pandadex/static/media/logo.a938fe5e.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.6cbb88b5.js",
     "static/css/2.3a0ac4c9.chunk.css",
     "static/js/2.9cde2f78.chunk.js",
-    "static/css/main.e69d9291.chunk.css",
+    "static/css/main.4c27b2bd.chunk.css",
     "static/js/main.01ebc96f.chunk.js"
   ]
 }
