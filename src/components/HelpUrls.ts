@@ -11,4 +11,5 @@ export const helpUrls = {
   twitter: 'https://twitter.com/pandacoin_fi',
   website: 'https://www.pandacrypto.org/',
   medium: 'https://pandacoin-fi.medium.com/',
+  listingForm: 'https://docs.google.com/forms/d/1l6LaedvKRlUBVq6BHj2X8vG_DyTXND4B5EflW2eO2Rs',
 };

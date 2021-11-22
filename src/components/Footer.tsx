@@ -12,6 +12,7 @@ const footerElements = [
   { description: 'Telegram', link: helpUrls.telegram },
   { description: 'Medium', link: helpUrls.medium },
   { description: 'Homepage', link: helpUrls.website },
+  { description: 'Request listing', link: helpUrls.listingForm },
 ];
 
 export const CustomFooter = () => {
