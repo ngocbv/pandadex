@@ -25,21 +25,39 @@ import {Order} from '@project-serum/serum/lib/market';
 import BonfidaApi from './bonfidaConnector';
 
 // Used in debugging, should be false in production
-let tokenMints = TOKEN_MINTS;
-tokenMints.push({
-  name: "PANDA",
-  address: new PublicKey("Aw8qLRHGhMcKq7rxs5XBNCd9oe3BvoAhpNMVz7AdGmty"),
-});
-
 const _IGNORE_DEPRECATED = false;
+
+const PANDADEX_MARKETS = [
+  {
+    coin_name: "PANDA",
+    pair: "PANDA/USDC",
+    mint: "Aw8qLRHGhMcKq7rxs5XBNCd9oe3BvoAhpNMVz7AdGmty",
+    market: "GdmQtZpXZiasZi6TVsDHVLeNvPZY1dmuQ82KXDcKEJPy",
+  },
+  {
+    coin_name: "SAMO",
+    pair: "SAMO/USDC",
+    mint: "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+    market: "FR3SPJmgfRSKKQ2ysUZBu7vJLpzTixXnjzb84bY3Diif",
+  },
+];
 let tmpMarkets = _IGNORE_DEPRECATED
   ? MARKETS.map((m) => ({ ...m, deprecated: false }))
   : MARKETS;
-tmpMarkets.push({
-  "address": new PublicKey("GdmQtZpXZiasZi6TVsDHVLeNvPZY1dmuQ82KXDcKEJPy"),
-  "name": "PANDA/USDC",
-  "programId": new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"),
-  "deprecated": false,
+let tokenMints = TOKEN_MINTS;
+
+PANDADEX_MARKETS.forEach((market) => {
+  tmpMarkets.push({
+    "address": new PublicKey(market.market),
+    "name": market.pair,
+    "programId": new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"),
+    "deprecated": false,
+  });
+
+  tokenMints.push({
+    name: market.coin_name,
+    address: new PublicKey("Aw8qLRHGhMcKq7rxs5XBNCd9oe3BvoAhpNMVz7AdGmty"),
+  });
 });
 
 export const USE_MARKETS: MarketInfo[] = tmpMarkets;
