@@ -17,6 +17,7 @@ const SizeTitle = styled(Row)`
 export default function PublicTrades({ smallScreen }) {
   const { baseCurrency, quoteCurrency, market } = useMarket();
   const [trades, loaded] = useBonfidaTrades();
+  console.log({trades, loaded})
 
   return (
     <FloatingElement

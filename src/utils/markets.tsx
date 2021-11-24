@@ -23,6 +23,7 @@ import {
 import {WRAPPED_SOL_MINT} from '@project-serum/serum/lib/token-instructions';
 import {Order} from '@project-serum/serum/lib/market';
 import BonfidaApi from './bonfidaConnector';
+import BalisariApi from './balisariConnector';
 
 // Used in debugging, should be false in production
 const _IGNORE_DEPRECATED = false;
@@ -389,6 +390,7 @@ export function _useUnfilteredTrades(limit = 10000) {
 
 export function useBonfidaTrades() {
   const { market } = useMarket();
+  console.log("useBonfidaTrades", market);
   const marketAddress = market?.address.toBase58();
 
   async function getBonfidaTrades() {
@@ -396,6 +398,7 @@ export function useBonfidaTrades() {
       return null;
     }
     return await BonfidaApi.getRecentTrades(marketAddress);
+    // return await BalisariApi.getRecentTrades(marketAddress);
   }
 
   return useAsyncData(
