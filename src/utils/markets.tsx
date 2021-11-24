@@ -24,6 +24,7 @@ import {WRAPPED_SOL_MINT} from '@project-serum/serum/lib/token-instructions';
 import {Order} from '@project-serum/serum/lib/market';
 import BonfidaApi from './bonfidaConnector';
 import BalisariApi from './balisariConnector';
+import RaydiumApi from './raydiumConnector';
 
 // Used in debugging, should be false in production
 const _IGNORE_DEPRECATED = false;
@@ -397,8 +398,9 @@ export function useBonfidaTrades() {
     if (!marketAddress) {
       return null;
     }
-    return await BonfidaApi.getRecentTrades(marketAddress);
+    // return await BonfidaApi.getRecentTrades(marketAddress);
     // return await BalisariApi.getRecentTrades(marketAddress);
+    return await RaydiumApi.getRecentTrades(marketAddress);
   }
 
   return useAsyncData(

@@ -2,8 +2,6 @@ import { BonfidaTrade } from './types';
 
 export default class BalisariApi {
   static URL: string = 'https://api.raydium.io/';
-  // static URL: string = 'https://api.dexbalisari.com/';
-  // static URL: string = 'https://dry-ravine-67635.herokuapp.com/';
 
   static async get(path: string) {
     try {
@@ -13,7 +11,7 @@ export default class BalisariApi {
         return responseJson.success ? responseJson.data : null;
       }
     } catch (err) {
-      console.log(`Error fetching from Balisari API ${path}: ${err}`);
+      console.log(`Error fetching from Raydium API ${path}: ${err}`);
     }
     return null;
   }
@@ -21,7 +19,6 @@ export default class BalisariApi {
   static async getRecentTrades(
     marketAddress: string,
   ): Promise<BonfidaTrade[] | null> {
-    // return BalisariApi.get(`trades/address/${marketAddress}`);
     return BalisariApi.get(`trade/address?market=${marketAddress}`);
   }
 }
