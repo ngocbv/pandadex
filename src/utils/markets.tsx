@@ -23,13 +23,214 @@ import {
 import {WRAPPED_SOL_MINT} from '@project-serum/serum/lib/token-instructions';
 import {Order} from '@project-serum/serum/lib/market';
 import BonfidaApi from './bonfidaConnector';
+import BalisariApi from './balisariConnector';
+import RaydiumApi from './raydiumConnector';
 
 // Used in debugging, should be false in production
 const _IGNORE_DEPRECATED = false;
 
-export const USE_MARKETS: MarketInfo[] = _IGNORE_DEPRECATED
+const PANDADEX_MARKETS = [
+  {
+    coin_name: "PANDA",
+    pair: "PANDA/USDC",
+    mint: "Aw8qLRHGhMcKq7rxs5XBNCd9oe3BvoAhpNMVz7AdGmty",
+    market: "GdmQtZpXZiasZi6TVsDHVLeNvPZY1dmuQ82KXDcKEJPy",
+  },
+  {
+    coin_name: "PANDA",
+    pair: "PANDA/SOL",
+    mint: "Aw8qLRHGhMcKq7rxs5XBNCd9oe3BvoAhpNMVz7AdGmty",
+    market: "GFc4xUAAFaY84mZUBoLAodHBrPqT2FLqu8Mwg3FXqSYs",
+  },
+  {
+    coin_name: "DOLPHIN",
+    pair: "DOLPHIN/USDC",
+    mint: "BYvRESCxiFvzz2yTckNB6wi8yuYiobQU7NHMUbVE7Wu5",
+    market: "atehN2dUwDgtXhzTujyW1A3dihkukmykE9fC8TeMpTa",
+  },
+  {
+    coin_name: "SAMO",
+    pair: "SAMO/USDC",
+    mint: "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+    market: "FR3SPJmgfRSKKQ2ysUZBu7vJLpzTixXnjzb84bY3Diif",
+  },
+  {
+    coin_name: "OOGI",
+    pair: "OOGI/USDC",
+    mint: "H7Qc9APCWWGDVxGD5fJHmLTmdEgT9GFatAKFNg6sHh8A",
+    market: "ANUCohkG9gamUn6ofZEbnzGkjtyMexDhnjCwbLDmQ8Ub",
+  },
+  {
+    coin_name: "SONAR",
+    pair: "SONAR/USDC",
+    mint: "sonarX4VtVkQemriJeLm6CKeW3GDMyiBnnAEMw1MRAE",
+    market: "9YdVSNrDsKDaGyhKL2nqEFKvxe3MSqMjmAvcjndVg1kj",
+  },
+  {
+    coin_name: "ORCA",
+    pair: "ORCA/USDC",
+    mint: "orcaEKTdK7LKz57vaAYr9QeNsVEPfiu6QeMU1kektZE",
+    market: "8N1KkhaCYDpj3awD58d85n973EwkpeYnRp84y1kdZpMX",
+  },
+  {
+    coin_name: "STEP",
+    pair: "STEP/USDC",
+    mint: "StepAscQoEioFxxWGnh2sLBDFp9d8rvKz2Yp39iDpyT",
+    market: "97qCB4cAVSTthvJu3eNoEx6AY6DLuRDtCoPm5Tdyg77S",
+  },
+  {
+    coin_name: "TULIP",
+    pair: "TULIP/USDC",
+    mint: "TuLipcqtGVXP9XR62wM8WWCm6a9vhLs7T1uoWBk6FDs",
+    market: "8GufnKq7YnXKhnB3WNhgy5PzU9uvHbaaRrZWQK6ixPxW",
+  },
+  {
+    coin_name: "TULIP",
+    pair: "TULIP/RAY",
+    mint: "TuLipcqtGVXP9XR62wM8WWCm6a9vhLs7T1uoWBk6FDs",
+    market: "GXde1EjpxVV5fzhHJcZqdLmsA3zmaChGFstZMjWsgKW7",
+  },
+  {
+    coin_name: "IN",
+    pair: "IN/USDC",
+    mint: "inL8PMVd6iiW3RCBJnr5AsrRN6nqr4BTrcNuQWQSkvY",
+    market: "49vwM54DX3JPXpey2daePZPmimxA4CrkXLZ6E1fGxx2Z",
+  },
+  {
+    coin_name: "GENE",
+    pair: "GENE/USDC",
+    mint: "GENEtH5amGSi8kHAtQoezp1XEXwZJ8vcuePYnXdKrMYz",
+    market: "FwZ2GLyNNrFqXrmR8Sdkm9DQ61YnQmxS6oobeH3rrLUM",
+  },
+  {
+    coin_name: "WOOF",
+    pair: "WOOF/USDC",
+    mint: "9nEqaUcb16sQ3Tn1psbkWqyhPdLmfHWjKGymREjsAgTE",
+    market: "CwK9brJ43MR4BJz2dwnDM7EXCNyHhGqCJDrAdsEts8n5",
+  },
+  {
+    coin_name: "CWAR",
+    pair: "CWAR/USDC",
+    mint: "HfYFjMKNZygfMC8LsQ8LtpPsPxEJoXJx4M6tqi75Hajo",
+    market: "CDYafmdHXtfZadhuXYiR7QaqmK9Ffgk2TA8otUWj9SWz",
+  },
+  {
+    coin_name: "CAVE",
+    pair: "CAVE/USDC",
+    mint: "4SZjjNABoqhbd4hnapbvoEPEqT8mnNkfbEoAwALf1V8t",
+    market: "KrGK6ZHyE7Nt35D7GqAKJYAYUPUysGtVBgTXsJuAxMT",
+  },
+  {
+    coin_name: "DFL",
+    pair: "DFL/USDC",
+    mint: "DFL1zNkaGPWm1BqAVqRjCZvHmwTFrEaJtbzJWgseoNJh",
+    market: "9UBuWgKN8ZYXcZWN67Spfp3Yp67DKBq1t31WLrVrPjTR",
+  },
+  {
+    coin_name: "SHILL",
+    pair: "SHILL/USDC",
+    mint: "9fvEiugrurd2kzSkqFjhGaUFiZUfP4UWbfprmFEm51M9",
+    market: "3KNXNjf1Vp3V5gYPjwnpALYCPhWpRXsPPC8CWBXqmnnN",
+  },
+  {
+    coin_name: "APT",
+    pair: "APT/USDC",
+    mint: "APTtJyaRX5yGTsJU522N4VYWg3vCvSb65eam5GrPT5Rt",
+    market: "ATjWoJDChATL7E5WVeSk9EsoJAhZrHjzCZABNx3Miu8B",
+  },
+  {
+    coin_name: "MEW",
+    pair: "MEW/USDC",
+    mint: "9BiqBycZWkWH21vYqCbu2bL1PjZbR5GxWGA8LQkShbyt",
+    market: "9xTPHXTEnXC8eqmtDntDtKLsrq15Kbwy28ucaWJN2qzH",
+  },
+  {
+    coin_name: "OTR",
+    pair: "OTR/USDC",
+    mint: "6TgvYd7eApfcZ7K5Mur7MaUQ2xT7THB4cLHWuMkQdU5Z",
+    market: "4k4WXdmrWjCG71E4pxMs6SQRRB5cypGNYatKb2iMnqN4",
+  },
+  {
+    coin_name: "MEME",
+    pair: "MEME/USDC",
+    mint: "6DNkUoMa6vNo3CsxAw5XMJhjmdPbPBENHJ6w35eMXESo",
+    market: "GB3C6u9Bstk3JwAFwkjRm8N6b3HaTKLhdD91W9ScMTmM",
+  },
+  {
+    coin_name: "SOLAB",
+    pair: "SOLAB/USDC",
+    mint: "GLmaRDRmYd4u3YLfnj9eq1mrwxa1YfSweZYYZXZLTRdK",
+    market: "5m7CdEhV6Tq5KnSCy5Cg4w6ug5DFCcHrUJ8JMzKVDdav",
+  },
+  {
+    coin_name: "SOLAPE",
+    pair: "SOLAPE/USDC",
+    mint: "GHvFFSZ9BctWsEc5nujR1MTmmJWY7tgQz2AXE6WVFtGN",
+    market: "4zffJaPyeXZ2wr4whHgP39QyTfurqZ2BEd4M5W6SEuon",
+  },
+  {
+    coin_name: "MOLA",
+    pair: "MOLA/USDC",
+    mint: "6uB5eEC8SzMbUdsPpe3eiNvHyvxdqUWnDEtpFQxkhNTP",
+    market: "HSpeWWRqBJ4HH2FPyfDhoN1AUq3gYoDenQGZASSqzYW1",
+  },
+  {
+    coin_name: "CATO",
+    pair: "CATO/USDC",
+    mint: "5p2zjqCd1WJzAVgcEnjhb9zWDU7b9XVhFhx4usiyN7jB",
+    market: "9fe1MWiKqUdwift3dEpxuRHWftG72rysCRHbxDy6i9xB",
+  },
+  {
+    coin_name: "DEGN",
+    pair: "DEGN/USDC",
+    mint: "A9UhP1xfQHWUhSd54NgKPub2XB3ZuQMdPEvf9aMTHxGT",
+    market: "4j2JjUFFwzsq9fXpTqh7PGpqniMzQtKApXfz8pEv1AeK",
+  },
+  {
+    coin_name: "SHROOMZ",
+    pair: "SHROOMZ/USDC",
+    mint: "2vRgBSJEVPXxayrhXoazQyCKSGFYQG3ZdfT2Gv5gZykL",
+    market: "E9XAtU18PXeSMcz5gkAkZ6yfj1E5nzY21x576ZvEg9VA",
+  },
+  {
+    coin_name: "CHICKS",
+    pair: "CHICKS/USDC",
+    mint: "cxxShYRVcepDudXhe7U62QHvw8uBJoKFifmzggGKVC2",
+    market: "Eg8a9ZicLPSyak4CiXfiMeJK6jmHq57Xx5ag5GY6vcDj",
+  },
+  {
+    coin_name: "HIPPO",
+    pair: "HIPPO/USDC",
+    mint: "3EkHyexJLGCvSxzn5umbtd9N69GoT4p5pfdLTFqCNP9Y",
+    market: "HnLKrfMN64ccSbYCj4DxjgPYveSkFujYrnMr4cvPfL8",
+  },
+  {
+    coin_name: "ASH",
+    pair: "ASH/USDC",
+    mint: "FY6XDSCubMhpkU9FAsUjB7jmN8YHYZGezHTWo9RHBSyX",
+    market: "56ZFVzqMqtDmyry9bK7vi1szUV2nuQ4kT6CzFAB649wE",
+  },
+];
+let tmpMarkets = _IGNORE_DEPRECATED
   ? MARKETS.map((m) => ({ ...m, deprecated: false }))
   : MARKETS;
+let tokenMints = TOKEN_MINTS;
+
+PANDADEX_MARKETS.forEach((market) => {
+  tmpMarkets.push({
+    "address": new PublicKey(market.market),
+    "name": market.pair,
+    "programId": new PublicKey("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"),
+    "deprecated": false,
+  });
+
+  tokenMints.push({
+    name: market.coin_name,
+    address: new PublicKey(market.mint),
+  });
+});
+
+export const USE_MARKETS: MarketInfo[] = tmpMarkets;
 
 export function useMarketsList() {
   return USE_MARKETS.filter(({ name, deprecated }) => !deprecated && !process.env.REACT_APP_EXCLUDE_MARKETS?.includes(name));
@@ -159,7 +360,7 @@ const _SLOW_REFRESH_INTERVAL = 5 * 1000;
 const _FAST_REFRESH_INTERVAL = 1000;
 
 export const DEFAULT_MARKET = USE_MARKETS.find(
-  ({ name, deprecated }) => name === 'SRM/USDT' && !deprecated,
+  ({ name, deprecated }) => name === 'PANDA/USDC' && !deprecated,
 );
 
 export function getMarketDetails(
@@ -175,13 +376,13 @@ export function getMarketDetails(
   );
   const baseCurrency =
     (market?.baseMintAddress &&
-      TOKEN_MINTS.find((token) => token.address.equals(market.baseMintAddress))
+      tokenMints.find((token) => token.address.equals(market.baseMintAddress))
         ?.name) ||
     (marketInfo?.baseLabel && `${marketInfo?.baseLabel}*`) ||
     'UNKNOWN';
   const quoteCurrency =
     (market?.quoteMintAddress &&
-      TOKEN_MINTS.find((token) => token.address.equals(market.quoteMintAddress))
+      tokenMints.find((token) => token.address.equals(market.quoteMintAddress))
         ?.name) ||
     (marketInfo?.quoteLabel && `${marketInfo?.quoteLabel}*`) ||
     'UNKNOWN';
@@ -358,7 +559,10 @@ export function useBonfidaTrades() {
     if (!marketAddress) {
       return null;
     }
-    return await BonfidaApi.getRecentTrades(marketAddress);
+    // return await BonfidaApi.getRecentTrades(marketAddress);
+    // return await BalisariApi.getRecentTrades(marketAddress);
+    const rayTrades = await RaydiumApi.getRecentTrades(marketAddress) || [];
+    return rayTrades.reverse();
   }
 
   return useAsyncData(

@@ -45,7 +45,10 @@ const Wrapper = styled.div`
 `;
 
 export default function TradePage() {
-  const { marketAddress } = useParams();
+  let { marketAddress } = useParams();
+  if (marketAddress === "panda-dolphin-collectibles") {
+    marketAddress = "atehN2dUwDgtXhzTujyW1A3dihkukmykE9fC8TeMpTa";
+  }
   useEffect(() => {
     if (marketAddress) {
       localStorage.setItem('marketAddress', JSON.stringify(marketAddress));
@@ -84,7 +87,7 @@ function TradePageInner() {
   });
 
   useEffect(() => {
-    document.title = marketName ? `${marketName} — Serum` : 'Serum';
+    document.title = marketName ? `${marketName} — Panda DEX` : 'Panda DEX';
   }, [marketName]);
 
   const changeOrderRef = useRef<
@@ -182,13 +185,13 @@ function TradePageInner() {
                 title="Market address"
                 trigger="click"
               >
-                <InfoCircleOutlined style={{ color: '#2abdd2' }} />
+                <InfoCircleOutlined style={{ color: '#f0b909' }} />
               </Popover>
             </Col>
           ) : null}
           <Col>
             <PlusCircleOutlined
-              style={{ color: '#2abdd2' }}
+              style={{ color: '#f0b909' }}
               onClick={() => setAddMarketVisible(true)}
             />
           </Col>
@@ -367,9 +370,11 @@ const RenderNormal = ({ onChangeOrderRef, onPrice, onSize }) => {
 const RenderSmall = ({ onChangeOrderRef, onPrice, onSize }) => {
   return (
     <>
-      <Row style={{ height: '30vh' }}>
-        <TVChartContainer />
-      </Row>
+      {
+      // <Row style={{ height: '30vh' }}>
+      //   <TVChartContainer />
+      // </Row>
+      }
       <Row
         style={{
           height: '900px',

@@ -51,6 +51,9 @@ export default function TradeForm({
     ref: ({ size, price }: { size?: number; price?: number }) => void,
   ) => void;
 }) {
+  const ICO_COIN = "";
+  const ICO_PRICE = 20.05;
+
   const [side, setSide] = useState<'buy' | 'sell'>('buy');
   const { baseCurrency, quoteCurrency, market } = useMarket();
   const baseCurrencyBalances = useSelectedBaseCurrencyBalances();
@@ -73,6 +76,13 @@ export default function TradeForm({
   const [price, setPrice] = useState<number | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
   const [sizeFraction, setSizeFraction] = useState(0);
+  const setDolphinPrice = (price) => {
+    if (baseCurrency === ICO_COIN) {
+      setPrice(ICO_PRICE);
+    } else {
+      setPrice(price);
+    }
+  }
 
   const availableQuote =
     openOrdersAccount && market
@@ -135,6 +145,10 @@ export default function TradeForm({
       return;
     }
     let usePrice = price || markPrice;
+    if (baseCurrency === ICO_COIN) {
+      setPrice(ICO_PRICE);
+      usePrice = ICO_PRICE;
+    }
     if (!usePrice) {
       setQuoteSize(undefined);
       return;
@@ -171,7 +185,7 @@ export default function TradeForm({
     const formattedSize = size && roundToDecimal(size, sizeDecimalCount);
     const formattedPrice = price && roundToDecimal(price, priceDecimalCount);
     formattedSize && onSetBaseSize(formattedSize);
-    formattedPrice && setPrice(formattedPrice);
+    formattedPrice && setDolphinPrice(formattedPrice);
   };
 
   const updateSizeFraction = () => {
@@ -187,7 +201,7 @@ export default function TradeForm({
       let formattedMarkPrice: number | string = priceDecimalCount
         ? markPrice.toFixed(priceDecimalCount)
         : markPrice;
-      setPrice(
+      setDolphinPrice(
         typeof formattedMarkPrice === 'number'
           ? formattedMarkPrice
           : parseFloat(formattedMarkPrice),
@@ -258,7 +272,7 @@ export default function TradeForm({
         feeDiscountPubkey: feeDiscountKey,
       });
       refreshCache(tuple('getTokenAccounts', wallet, connected));
-      setPrice(undefined);
+      setDolphinPrice(undefined);
       onSetBaseSize(undefined);
     } catch (e) {
       console.warn(e);
@@ -297,17 +311,19 @@ export default function TradeForm({
           >
             BUY
           </Radio.Button>
-          <Radio.Button
-            value="sell"
-            style={{
-              width: '50%',
-              textAlign: 'center',
-              background: side === 'sell' ? '#F23B69' : '',
-              borderColor: side === 'sell' ? '#F23B69' : '',
-            }}
-          >
-            SELL
-          </Radio.Button>
+          {baseCurrency !== ICO_COIN && (
+            <Radio.Button
+              value="sell"
+              style={{
+                width: '50%',
+                textAlign: 'center',
+                background: side === 'sell' ? '#F23B69' : '',
+                borderColor: side === 'sell' ? '#F23B69' : '',
+              }}
+            >
+              SELL
+            </Radio.Button>
+          )}
         </Radio.Group>
         <Input
           style={{ textAlign: 'right', paddingBottom: 8 }}
@@ -315,10 +331,10 @@ export default function TradeForm({
           suffix={
             <span style={{ fontSize: 10, opacity: 0.5 }}>{quoteCurrency}</span>
           }
-          value={price}
+          value={baseCurrency === ICO_COIN ? ICO_PRICE : price}
           type="number"
           step={market?.tickSize || 1}
-          onChange={(e) => setPrice(parseFloat(e.target.value))}
+          onChange={(e) => setDolphinPrice(parseFloat(e.target.value))}
         />
         <Input.Group compact style={{ paddingBottom: 8 }}>
           <Input
